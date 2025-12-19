@@ -238,6 +238,37 @@ function runUseSkill(skillName) {
 
 }
 
+function runSubagentSupport(mode) {
+    const strategy = (mode || 'emulate').toLowerCase();
+    const emulate = strategy === 'emulate' || strategy === 'batch' || strategy === 'guided';
+
+    console.log('# Subagent support for Codex');
+    console.log('# ==========================');
+    console.log('');
+    console.log('Codex cannot spawn parallel subagents. Use this helper whenever a user asks for subagents or parallel dispatch.');
+    console.log('');
+    console.log('Always do the following:');
+    console.log('- Tell the user you will handle the work directly because subagents are unavailable in Codex.');
+    console.log('- Keep the requested plan visible so the user can see progress.');
+    console.log('- Report results and get confirmation before moving to the next batch.');
+    console.log('');
+
+    if (emulate) {
+        console.log('Emulated batching flow (recommended):');
+        console.log('1) Break the work into 2-3 item batches and execute them sequentially.');
+        console.log('2) After each batch, summarize what changed and surface any questions before continuing.');
+        console.log('3) Keep your own review loop: self-review for spec compliance, then a quick code-quality pass.');
+    } else {
+        console.log('Fallback flow (minimal):');
+        console.log('1) Explain that you will run the tasks sequentially because Codex cannot create subagents.');
+        console.log('2) Execute the tasks directly, narrating progress and checkpoints.');
+        console.log('3) Offer to pause for feedback after each logical milestone.');
+    }
+
+    console.log('');
+    console.log('Tip: If the user insists on subagents, remind them this emulation is the Codex-compatible equivalent.');
+}
+
 // Main CLI
 const command = process.argv[2];
 const arg = process.argv[3];
@@ -249,6 +280,9 @@ switch (command) {
     case 'use-skill':
         runUseSkill(arg);
         break;
+    case 'subagents':
+        runSubagentSupport(arg);
+        break;
     case 'find-skills':
         runFindSkills();
         break;
@@ -257,6 +291,7 @@ switch (command) {
         console.log('Usage:');
         console.log('  superpowers-codex bootstrap              # Run complete bootstrap with all skills');
         console.log('  superpowers-codex use-skill <skill-name> # Load a specific skill');
+        console.log('  superpowers-codex subagents [mode]       # Show how to emulate or fall back when subagents are requested');
         console.log('  superpowers-codex find-skills            # List all available skills');
         console.log('');
         console.log('Examples:');
