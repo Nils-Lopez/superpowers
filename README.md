@@ -65,6 +65,9 @@ Tell Codex:
 Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.codex/INSTALL.md
 ```
 
+Subagent requests are handled with the Codex helper:
+`~/.codex/superpowers/.codex/superpowers-codex subagents` (emulates batches or provides fallback guidance).
+
 **Detailed docs:** [docs/README.codex.md](docs/README.codex.md)
 
 ### OpenCode
