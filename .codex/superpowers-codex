@@ -239,29 +239,91 @@ function runUseSkill(skillName) {
 }
 
 // Main CLI
-const command = process.argv[2];
-const arg = process.argv[3];
+function resolveCommandStyleSkill(commandArg) {
+    if (!commandArg || !commandArg.startsWith('/superpowers:')) {
+        return null;
+    }
 
-switch (command) {
-    case 'bootstrap':
-        runBootstrap();
-        break;
-    case 'use-skill':
-        runUseSkill(arg);
-        break;
-    case 'find-skills':
-        runFindSkills();
-        break;
-    default:
-        console.log('Superpowers for Codex');
-        console.log('Usage:');
-        console.log('  superpowers-codex bootstrap              # Run complete bootstrap with all skills');
-        console.log('  superpowers-codex use-skill <skill-name> # Load a specific skill');
-        console.log('  superpowers-codex find-skills            # List all available skills');
-        console.log('');
-        console.log('Examples:');
-        console.log('  superpowers-codex bootstrap');
-        console.log('  superpowers-codex use-skill superpowers:brainstorming');
-        console.log('  superpowers-codex use-skill my-custom-skill');
-        break;
+    const aliasName = commandArg
+        .slice('/superpowers:'.length)
+        .replace(/^superpowers:/, '')
+        .replace(/^\//, '')
+        .trim();
+
+    if (!aliasName) return null;
+
+    const availableSkills = skillsCore.findSkillsInDir(superpowersSkillsDir, 'superpowers', 3)
+        .map((skill) => {
+            const relativePath = path.relative(superpowersSkillsDir, skill.path).replace(/\\/g, '/');
+            const baseName = path.basename(skill.path);
+            const displayName = (skill.name || baseName).toLowerCase();
+            return {
+                relativePath,
+                baseName: baseName.toLowerCase(),
+                displayName,
+            };
+        });
+
+    const normalizedAlias = aliasName.toLowerCase();
+
+    const exactMatch = availableSkills.find((skill) =>
+        skill.displayName === normalizedAlias ||
+        skill.baseName === normalizedAlias ||
+        skill.relativePath.toLowerCase() === normalizedAlias
+    );
+
+    if (exactMatch) {
+        return `superpowers:${exactMatch.relativePath}`;
+    }
+
+    const prefixMatches = availableSkills.filter((skill) =>
+        skill.displayName.startsWith(normalizedAlias) ||
+        skill.baseName.startsWith(normalizedAlias) ||
+        skill.relativePath.toLowerCase().startsWith(normalizedAlias)
+    );
+
+    if (prefixMatches.length === 1) {
+        return `superpowers:${prefixMatches[0].relativePath}`;
+    }
+
+    if (prefixMatches.length > 1) {
+        const sortedMatches = [...prefixMatches].sort((a, b) => a.relativePath.length - b.relativePath.length);
+        return `superpowers:${sortedMatches[0].relativePath}`;
+    }
+
+    return `superpowers:${aliasName}`;
+}
+
+const rawCommand = process.argv[2];
+const arg = process.argv[3];
+const commandStyleSkill = resolveCommandStyleSkill(rawCommand);
+
+if (commandStyleSkill) {
+    runUseSkill(commandStyleSkill);
+} else {
+    switch (rawCommand) {
+        case 'bootstrap':
+            runBootstrap();
+            break;
+        case 'use-skill':
+            runUseSkill(arg);
+            break;
+        case 'find-skills':
+            runFindSkills();
+            break;
+        default:
+            console.log('Superpowers for Codex');
+            console.log('Usage:');
+            console.log('  superpowers-codex bootstrap              # Run complete bootstrap with all skills');
+            console.log('  superpowers-codex use-skill <skill-name> # Load a specific skill');
+            console.log('  superpowers-codex find-skills            # List all available skills');
+            console.log('  superpowers-codex /superpowers:<alias>   # Slash-style command aliases');
+            console.log('');
+            console.log('Examples:');
+            console.log('  superpowers-codex bootstrap');
+            console.log('  superpowers-codex use-skill superpowers:brainstorming');
+            console.log('  superpowers-codex /superpowers:brainstorm');
+            console.log('  superpowers-codex use-skill my-custom-skill');
+            break;
+    }
 }
