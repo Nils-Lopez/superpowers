@@ -38,7 +38,7 @@ Tell Codex:
 Run ~/.codex/superpowers/.codex/superpowers-codex find-skills to show available skills
 ```
 
-You should see a list of available skills with descriptions.
+You should see a list of available skills with descriptions (including `superpowers:investigate` for repository analysis).
 
 ## Usage
 
@@ -52,6 +52,12 @@ Run ~/.codex/superpowers/.codex/superpowers-codex find-skills
 
 ```
 Run ~/.codex/superpowers/.codex/superpowers-codex use-skill superpowers:brainstorming
+```
+
+To map an unfamiliar repository or answer architecture questions with evidence:
+
+```
+Run ~/.codex/superpowers/.codex/superpowers-codex use-skill superpowers:investigate
 ```
 
 ### Bootstrap All Skills

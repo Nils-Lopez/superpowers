@@ -55,6 +55,7 @@ Check that commands appear:
 # /superpowers:brainstorm - Interactive design refinement
 # /superpowers:write-plan - Create implementation plan
 # /superpowers:execute-plan - Execute plan in batches
+# /superpowers:investigate - Repository investigation and evidence gathering
 ```
 
 ### Codex
@@ -120,6 +121,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 **Meta**
 - **writing-skills** - Create new skills following best practices (includes testing methodology)
 - **using-superpowers** - Introduction to the skills system
+- **investigate** - Deep codebase mapping, question answering, and parity guidance for Claude/Codex
 
 ## Philosophy
 
