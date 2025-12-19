@@ -40,6 +40,14 @@ Run ~/.codex/superpowers/.codex/superpowers-codex find-skills to show available 
 
 You should see a list of available skills with descriptions (including `superpowers:investigate` for repository analysis).
 
+Verify slash-style aliases resolve correctly:
+
+```
+Run ~/.codex/superpowers/.codex/superpowers-codex /superpowers:brainstorm
+```
+
+You should see the Brainstorming skill content, confirming the alias mapping works.
+
 ## Usage
 
 ### Finding Skills
@@ -59,6 +67,16 @@ To map an unfamiliar repository or answer architecture questions with evidence:
 ```
 Run ~/.codex/superpowers/.codex/superpowers-codex use-skill superpowers:investigate
 ```
+
+### Slash-Style Aliases
+
+Use Codex slash commands that map directly to skills:
+
+```
+Run ~/.codex/superpowers/.codex/superpowers-codex /superpowers:brainstorm
+```
+
+This resolves to `superpowers:brainstorming` and loads the matching skill while keeping normal CLI commands intact.
 
 ### Bootstrap All Skills
 
@@ -91,15 +109,32 @@ description: Use when [condition] - [what it does]
 
 Personal skills override superpowers skills with the same name.
 
+### Subagent requests (fallback/emulation)
+
+Codex can't spawn parallel subagents. When a user asks for subagents or parallel dispatch, run:
+
+```
+Run ~/.codex/superpowers/.codex/superpowers-codex subagents
+```
+
+That prints the emulated batching flow (small sequential batches with self-review) plus a minimal fallback. You can switch to the concise fallback guidance with:
+
+```
+Run ~/.codex/superpowers/.codex/superpowers-codex subagents fallback
+```
+
+Tell the user you're emulating subagents before you continue so expectations stay aligned.
+
 ## Architecture
 
 ### Codex CLI Tool
 
 **Location:** `~/.codex/superpowers/.codex/superpowers-codex`
 
-A Node.js CLI script that provides three commands:
+A Node.js CLI script that provides four commands:
 - `bootstrap` - Load complete bootstrap with all skills
 - `use-skill <name>` - Load a specific skill
+- `subagents [mode]` - Show emulated batching or fallback instructions when subagents are requested
 - `find-skills` - List all available skills
 
 ### Shared Core Module
@@ -113,7 +148,7 @@ The Codex implementation uses the shared `skills-core` module (ES module format)
 Skills written for Claude Code are adapted for Codex with these mappings:
 
 - `TodoWrite` → `update_plan`
-- `Task` with subagents → Tell user subagents aren't available, do work directly
+- `Task` with subagents → Use `~/.codex/superpowers/.codex/superpowers-codex subagents` to emulate batches or fall back transparently (tell the user subagents aren't available, then run the work directly with updates)
 - `Skill` tool → `~/.codex/superpowers/.codex/superpowers-codex use-skill`
 - File operations → Native Codex tools
 

@@ -1,0 +1,1 @@
+We shipped a new API endpoint and UI flow and need an engineering-ready report for downstream teams. Summarize backend changes, frontend impacts, rollout/rollback, and handoff notes.

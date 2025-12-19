@@ -56,6 +56,7 @@ Check that commands appear:
 # /superpowers:write-plan - Create implementation plan
 # /superpowers:execute-plan - Execute plan in batches
 # /superpowers:investigate - Repository investigation and evidence gathering
+# /superpowers:report - Engineering reports and integration handoffs
 ```
 
 ### Codex
@@ -65,6 +66,9 @@ Tell Codex:
 ```
 Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.codex/INSTALL.md
 ```
+
+Subagent requests are handled with the Codex helper:
+`~/.codex/superpowers/.codex/superpowers-codex subagents` (emulates batches or provides fallback guidance).
 
 **Detailed docs:** [docs/README.codex.md](docs/README.codex.md)
 
@@ -117,6 +121,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 - **using-git-worktrees** - Parallel development branches
 - **finishing-a-development-branch** - Merge/PR decision workflow
 - **subagent-driven-development** - Fast iteration with two-stage review (spec compliance, then code quality)
+- **report** - Ship-ready reporting workflow with API/frontend handoffs
 
 **Meta**
 - **writing-skills** - Create new skills following best practices (includes testing methodology)
