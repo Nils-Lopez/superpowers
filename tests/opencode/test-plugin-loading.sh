@@ -49,6 +49,14 @@ else
     exit 1
 fi
 
+# Verify report skill is present for discovery
+if [ -f "$HOME/.config/opencode/superpowers/skills/report/SKILL.md" ]; then
+    echo "  [PASS] report skill is installed"
+else
+    echo "  [FAIL] report skill not found"
+    exit 1
+fi
+
 # Test 4: Check using-superpowers skill exists (critical for bootstrap)
 echo "Test 4: Checking using-superpowers skill (required for bootstrap)..."
 if [ -f "$HOME/.config/opencode/superpowers/skills/using-superpowers/SKILL.md" ]; then
