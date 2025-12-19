@@ -7,7 +7,7 @@ Complete guide for using Superpowers with OpenAI Codex.
 Tell Codex:
 
 ```
-Fetch and follow instructions from https://raw.githubusercontent.com/obra/superpowers/refs/heads/main/.codex/INSTALL.md
+Fetch and follow instructions from https://raw.githubusercontent.com/Nils-Lopez/superpowers/refs/heads/main/.codex/INSTALL.md
 ```
 
 ## Manual Installation
@@ -23,7 +23,7 @@ Fetch and follow instructions from https://raw.githubusercontent.com/obra/superp
 
 ```bash
 mkdir -p ~/.codex/superpowers
-git clone https://github.com/obra/superpowers.git ~/.codex/superpowers
+git clone https://github.com/Nils-Lopez/superpowers.git ~/.codex/superpowers
 ```
 
 #### 2. Install Bootstrap
@@ -159,6 +159,30 @@ cd ~/.codex/superpowers
 git pull
 ```
 
+## Optional: Codex slash commands for Superpowers
+
+Codex discovers Markdown templates in `~/.codex/prompts/` as `/slash` commands. This repository ships ready-made templates for the five core Superpowers commands so you can trigger them instantly from the Codex CLI.
+
+1. Create (or reuse) your prompts folder:
+
+   ```bash
+   mkdir -p ~/.codex/prompts
+   ```
+
+2. Copy or symlink the Superpowers templates:
+
+   ```bash
+   cp -r ~/.codex/superpowers/.codex/prompts/*.md ~/.codex/prompts/
+   # or: ln -sf ~/.codex/superpowers/.codex/prompts/*.md ~/.codex/prompts/
+   ```
+
+3. Restart Codex. You can now run:
+   - `/investigate "what's the logging setup?"`
+   - `/brainstorm "add SSO to the admin portal"`
+   - `/write-plan`
+   - `/execute-plan "continue task batch 2"`
+   - `/report "summarize branch changes for review"`
+
 ## Troubleshooting
 
 ### Skills not found
@@ -185,8 +209,8 @@ Should show v14 or higher (v18+ recommended for ES module support).
 
 ## Getting Help
 
-- Report issues: https://github.com/obra/superpowers/issues
-- Main documentation: https://github.com/obra/superpowers
+- Report issues: https://github.com/Nils-Lopez/superpowers/issues
+- Main documentation: https://github.com/Nils-Lopez/superpowers
 - Blog post: https://blog.fsck.com/2025/10/27/skills-for-openai-codex/
 
 ## Note
