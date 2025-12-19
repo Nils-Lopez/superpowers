@@ -40,6 +40,14 @@ Run ~/.codex/superpowers/.codex/superpowers-codex find-skills to show available 
 
 You should see a list of available skills with descriptions.
 
+Verify slash-style aliases resolve correctly:
+
+```
+Run ~/.codex/superpowers/.codex/superpowers-codex /superpowers:brainstorm
+```
+
+You should see the Brainstorming skill content, confirming the alias mapping works.
+
 ## Usage
 
 ### Finding Skills
@@ -53,6 +61,16 @@ Run ~/.codex/superpowers/.codex/superpowers-codex find-skills
 ```
 Run ~/.codex/superpowers/.codex/superpowers-codex use-skill superpowers:brainstorming
 ```
+
+### Slash-Style Aliases
+
+Use Codex slash commands that map directly to skills:
+
+```
+Run ~/.codex/superpowers/.codex/superpowers-codex /superpowers:brainstorm
+```
+
+This resolves to `superpowers:brainstorming` and loads the matching skill while keeping normal CLI commands intact.
 
 ### Bootstrap All Skills
 
