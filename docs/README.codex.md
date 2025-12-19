@@ -159,6 +159,30 @@ cd ~/.codex/superpowers
 git pull
 ```
 
+## Optional: Codex slash commands for Superpowers
+
+Codex discovers Markdown templates in `~/.codex/prompts/` as `/slash` commands. This repository ships ready-made templates for the five core Superpowers commands so you can trigger them instantly from the Codex CLI.
+
+1. Create (or reuse) your prompts folder:
+
+   ```bash
+   mkdir -p ~/.codex/prompts
+   ```
+
+2. Copy or symlink the Superpowers templates:
+
+   ```bash
+   cp -r ~/.codex/superpowers/.codex/prompts/*.md ~/.codex/prompts/
+   # or: ln -sf ~/.codex/superpowers/.codex/prompts/*.md ~/.codex/prompts/
+   ```
+
+3. Restart Codex. You can now run:
+   - `/investigate "what's the logging setup?"`
+   - `/brainstorm "add SSO to the admin portal"`
+   - `/write-plan`
+   - `/execute-plan "continue task batch 2"`
+   - `/report "summarize branch changes for review"`
+
 ## Troubleshooting
 
 ### Skills not found
