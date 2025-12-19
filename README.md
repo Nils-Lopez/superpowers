@@ -1,6 +1,7 @@
 # Superpowers
 
 Superpowers is a complete software-development workflow for coding agents, built on top of composable "skills" and a small set of commands that keep every session disciplined and repeatable.
+/!\ This is a fork of obra superpowers, just improved with skills I personnaly wanted and better codex integration :) 
 
 ## Official repository
 
